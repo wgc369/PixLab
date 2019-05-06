@@ -98,5 +98,11 @@ public class IntArrayWorker
       }
     }
   }
+  
+  public int getCount(int val)
+  {
+      
+      return 0;
+  }
  
 }
