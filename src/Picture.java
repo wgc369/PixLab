@@ -84,6 +84,81 @@ public class Picture extends SimplePicture
     return output;
     
   }
+  /*public void myCollage()
+  {
+    Picture flower1 = new Picture("flower1.jpg");
+    Picture flower2 = new Picture("flower2.jpg");
+    this.copy(flower1,0,0);
+    this.copy(flower2,100,0);
+    this.copy(flower1,200,0);
+    Picture flowerNoBlue = new Picture(flower2);
+    flowerNoBlue.zeroBlue();
+    this.copy(flowerNoBlue,300,0);
+    this.copy(flower1,400,0);
+    this.copy(flower2,500,0);
+    this.mirrorVertical();
+    Picture beach = new Picture("beach.jpg");
+    this.copy2(beach, 300, 260, 20, 22, 180, 200);
+    this.copy2(beach, 50, 400, 70, 60, 250, 450);
+    this.copy2(beach, 150, 350, 100, 60, 250, 250);
+  }
+  public void copy2(Picture fromPic, int startRow, int startCol, int sRow, int sCol, int eRow, int eCol)
+  {
+    Pixel fromPixel = null;
+    Pixel toPixel = null;
+    Pixel[][] toPixels = this.getPixels2D();
+    Pixel[][] fromPixels = fromPic.getPixels2D();
+    for (int fromRow = sRow, toRow = startRow; 
+         fromRow < eRow &&
+         toRow < toPixels.length; 
+         fromRow++, toRow++)
+    {
+      for (int fromCol = sCol, toCol = startCol; 
+           fromCol < eCol &&
+           toCol < toPixels[0].length;  
+           fromCol++, toCol++)
+      {
+        fromPixel = fromPixels[fromRow][fromCol];
+        toPixel = toPixels[toRow][toCol];
+        toPixel.setColor(fromPixel.getColor());
+      }
+    }  
+  }*/
+  public void blur(int x, int y, int w, int h)
+  {
+    Pixel fromPixel = null;
+    Pixel toPixel = null;
+    Pixel[][] toPixels = this.getPixels2D();
+    Pixel[][] fromPixels = this.getPixels2D();
+    for (int fromRow = w, toRow = x; fromRow < 2*w &&toRow < toPixels.length; fromRow++, toRow++)
+    {
+      for (int fromCol = h, toCol = y; fromCol < 2*h &&toCol < toPixels[0].length;  fromCol++, toCol++)
+      {
+          int avgR = 0;
+          int avgG = 0;
+          int avgB = 0;
+        fromPixel = fromPixels[fromRow+155][fromCol+135];
+        for(int i=0; i<3; i++)
+        {
+            for(int j=0; j<3; j++)
+            {
+                Pixel p = fromPixels[fromRow+154+i][fromCol+134+j];
+                avgR = avgR+p.getRed();
+                avgG = avgG+p.getGreen();
+                avgB = avgB+p.getBlue();
+            }
+        }
+        avgR = avgR/9;
+        avgG = avgG/9;
+        avgB = avgB/9;
+        fromPixel.setRed(avgR);
+        fromPixel.setGreen(avgG);
+        fromPixel.setBlue(avgB);
+        toPixel = toPixels[toRow][toCol];
+        toPixel.setColor(fromPixel.getColor());
+      }
+    }
+  }
   
   /** Method to set the blue to 0 */
   public void zeroBlue()

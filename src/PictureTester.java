@@ -108,6 +108,12 @@ public class PictureTester
       caterpillar.mirrorVertical();
       caterpillar.explore();
   }
+  public static void testCopy() {
+      Picture caterpillar = new Picture("beach.jpg");
+      caterpillar.explore();
+      caterpillar.copy(caterpillar, 100, 100);
+      caterpillar.explore();
+  }
   public static void testCopy2() {
       Picture caterpillar = new Picture("beach.jpg");
       caterpillar.explore();
@@ -119,10 +125,20 @@ public class PictureTester
       canvas.myCollage();
       canvas.explore();
   }
+  public static void testBlur(int x, int y, int w, int h, int n)
+{
+   Picture redMoto = new Picture("redMotorcycle.jpg");
+   for (int i = 0; i<n; i++){
+      redMoto.blur(x,y,w,h);
+    }
+    redMoto.explore();
+}
+
   /** Main method for testing.  Every class can have a main
     * method in Java */
   public static void main(String[] args)
   {
+      testBlur(180,160,25,25,10);
     // uncomment a call here to run a test
     // and comment out the ones you don't want
     // to run
@@ -133,7 +149,7 @@ public class PictureTester
     //testKeepOnlyBlue();
 	  //testCopy2();
 	  //testMyCollage();
-	  testEdgeDetection();
+	 // testEdgeDetection();
     //testKeepOnlyRed();
     //testKeepOnlyGreen();
     //testNegate();
